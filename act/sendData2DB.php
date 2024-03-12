@@ -9,7 +9,7 @@ $s = "THISISNOTE";
 $query = "insert into files (name,discharge_day,discharge_mouth,note,status) values ('$name','$dis_day','$dis_mouth','$s','$status')";
 $stm = $con->prepare($query);
 if($stm->execute()){
-    header("location:./../pages/addnew.php");
+    header("location:./../pages/INDEX.PHP");
 };
 // $stm->execute();
 ?> 
