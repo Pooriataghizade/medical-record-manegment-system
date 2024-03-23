@@ -26,13 +26,30 @@ foreach($data as $dt)
     border-radius: 10px;">
     <h2><?= $dt['name']; ?></h2>
     <h3>تاریخ ترخیص : <?= $dt['discharge_day']?> <?= $dt['discharge_mouth']?></h3>
-    <h1><?php if($dt['status'] == "0"){echo "بررسی نشده";}; ?></h1>
+    <h1><?php 
+    if($dt['status'] == "0")
+    {echo "بررسی نشده";}
+    elseif($dt['status'] == "1")
+    {echo "سورت شده";}
+    elseif($dt['status'] == "2")
+    {echo "صمدی";}
+     ?></h1>
     <div style="display: flex;justify-content: space-between; align-items: center; width: 100%;">
-       <a href="">SORTED</a>
-       <a href="">SAMADI</a>
+    <button type="button" style="background: #ffbc00;
+             padding: 4px 27px;
+             border-radius: 5px;"><a style="text-decoration: none;color: #034c70;" href="./fileStatus.php?st=1&id=<?= $dt['id'];?>">Sorted</a></button> 
+       <button type="button" style="background: #ffbc00;
+             padding: 4px 27px;
+             border-radius: 5px;"><a style="text-decoration: none;color: #034c70;" href="./fileStatus.php?st=2&id=<?= $dt['id'];?>">Samadi</a></button> 
        <a href="">BAYGANI</a>
        <a href="">Unit For Problem</a>
        <a href="">Unit For complete File</a>
+       
+    </div>
+    <div>
+
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button>Add Note To File</button>
     </div>
     <button><a href="./index.php">BACK</a></button>
 </div>

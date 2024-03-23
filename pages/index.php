@@ -1,19 +1,41 @@
 <?php 
 include "./../body/head.php";
 include "./../DB/dataBase.php";
-$query2 = "select * from files";
-$stm2 = $con->prepare($query2);
-$stm2->execute();
-$data =  $stm2->fetchAll(PDO::FETCH_ASSOC);
-
-
 $dddate = jdate("d");
 $ddate = jdate("F");
 switch($ddate)
 {
   case "اسفند";
   $f = "12";
+  break;
+  case "فروردین";
+  $f="1";
+  break;
+  case "اردیبهشت";
+  $f = "2";
+  break;
 }
+
+//
+$query = "SELECT * FROM files WHERE discharge_mouth = :f AND discharge_day = :dddate";
+$stmt = $con->prepare($query);
+$stmt->bindParam(':f', $f, PDO::PARAM_STR);
+$stmt->bindParam(':dddate', $dddate, PDO::PARAM_STR);
+$stmt->execute(); 
+$data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+// var_dump($data);die();
+// 
+
+// $query2 = "select * from files where discharge_mouth = '$f' && discharge_day = '$dddate'";
+// $stm2 = $con->prepare($query2);
+// $stm2->execute();
+
+
+
+
+
+
+// print_r($f);
 
 ?>
 <style>
@@ -31,7 +53,7 @@ switch($ddate)
     <!-- ADD NEW FILE -->    <!-- ADD NEW FILE -->    <!-- ADD NEW FILE -->    <!-- ADD NEW FILE -->    <!-- ADD NEW FILE -->
         <!-- ADD NEW FILE -->    <!-- ADD NEW FILE -->    <!-- ADD NEW FILE -->    <!-- ADD NEW FILE -->    <!-- ADD NEW FILE -->
             <!-- ADD NEW FILE -->    <!-- ADD NEW FILE -->    <!-- ADD NEW FILE -->    <!-- ADD NEW FILE -->
-<div style="display: flex;justify-content: space-between;background: black";>
+<div style="display: flex;justify-content: space-between;background: #36434a";>
 <div style="
     margin-top: 0px;
     padding: 10px 5px;">
@@ -40,7 +62,7 @@ switch($ddate)
       <label for="name">Name : </label>
       <input name="name" type="text">
       <label for="discharge_day">Day : </label>
-      <input name="discharge_day" type="number" value="<?= $dddate; ?>">
+      <input name="discharge_day" type="text" value="<?= $dddate; ?>">
       <label for="discharge_mouth">Mouth : </label>
       <select name="discharge_mouth" id="">
         <option value="1" <?php if($f == "1"){echo "selected";}?>>Farvardin</option>
