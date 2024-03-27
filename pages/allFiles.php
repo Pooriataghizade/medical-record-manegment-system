@@ -31,6 +31,7 @@ $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <label for="discharge_mouth">Mouth : </label>
       <select name="discharge_mouth" id="">
+        <option value="">SELECT</option>
         <option value="1">Farvardin</option>
         <option value="2">Ordibehesht</option>
         <option value="3">Khordad</option>
@@ -38,7 +39,7 @@ $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
         <option value="5">Mordad</option>
         <option value="6">Shahrivar</option>
         <option value="7">Mehr</option>
-        <option value="12" <?php if($f == "12"){echo "selected";}?>>Esfand</option>
+        <option value="12">Esfand</option>
       </select>
 
       <button type="submit">SEARCH</button>
@@ -47,7 +48,7 @@ $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div style="display: flex;justify-content: CENTER;flex-wrap: wrap;">
       <?php  foreach($data as $dt){   ?>
-      <div style="    background-color: #034c70;
+      <div style="    background-color: #36434a;
     margin-inline: 5px;
     margin: 5px 6px;
     min-width: 240px;
@@ -56,7 +57,7 @@ $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
     justify-content: center;
     align-items: center;
     padding: 17px 5PX;
-    border-radius: 10px;
+    border-radius: 2px;
     color:whitesmoke;">
         <h3><?= $dt['name']?></h3>
         <div style="display: flex;">

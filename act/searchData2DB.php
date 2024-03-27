@@ -4,40 +4,33 @@ require_once "./../DB/dataBase.php";
 $name = $_POST['name'];
 $discharge_day = $_POST['discharge_day'];
 $discharge_month = $_POST['discharge_mouth'];
+// var_dump($discharge_day);
+// JUST NAME
+    if(!empty($name) && empty($discharge_day) && empty($discharge_month))
+    {
+        $pattern = '%' . $name . '%';
+        $sql = 'SELECT * FROM files WHERE name LIKE :pattern';
+        $statement = $con->prepare($sql);
+        $statement->execute([':pattern' => $pattern]);
+    }
+    //NAME AND DISCHARGE DAY
+    // elseif(!empty($name) && !empty($discharge_day) && empty($discharge_month))
+    // {
+    //     $sql = "SELECT * FROM files WHERE name LIKE ? AND discharge_day = ?";
+    //     $params = array("%$name%", "%$discharge_day%");
+    //     $statement = $con->prepare($sql);
+    //     $statement->execute($params); 
+    // }
+    //NAME AND DISCHAGE DAY AND MOUTH
+    elseif(!empty($name) && !empty($discharge_day) && !empty($discharge_month))
+    {
+        $sql = "SELECT * FROM files WHERE name LIKE ? AND discharge_day = ? AND discharge_mouth = ?";
+        $params = array("%$name%",$discharge_day,$discharge_month);
+        $statement = $con->prepare($sql);
+        $statement->execute($params); 
+    }
+   
+    $data = $statement->fetchAll(PDO::FETCH_ASSOC);
+    var_dump($data);
 
-$sql = "SELECT * FROM files WHERE 1=1"; // Start with a dummy condition
-
-if (!empty($name)) {
-    $sql .= " AND name = :name";
-}
-if (!empty($discharge_day)) {
-    $sql .= " AND discharge_day = :date";
-}
-if (!empty($discharge_month)) {
-    $sql .= " AND discharge_mouth = :mouth";
-}
-
-// Execute the query
-$stmt = $con->prepare($sql);
-
-if (!empty($name)) {
-    $stmt->bindParam(':name', $name);
-}
-if (!empty($discharge_day)) {
-    $stmt->bindParam(':date', $discharge_day);
-}
-if (!empty($discharge_month)) {
-    $stmt->bindParam(':mouth', $discharge_month);
-}
-
-$stmt->execute();
-
-// Fetch results
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Display results (you can format this as needed)
-foreach ($results as $row) {
-    echo "Name: " . $row['name'] . ", Discharge Date: " . $row['discharge_date'] . ", Discharge Mouth: " . $row['discharge_mouth'] . "<br>";
-}
-?>
 ?> 
