@@ -1,16 +1,15 @@
 <?php
+session_start();
 include "./../body/head.php";
 include "./../DB/dataBase.php";
-// 
-
-
-// 
-$query = "SELECT * FROM files";
-$stmt = $con->prepare($query);
-// $stmt->bindParam(':f', $f, PDO::PARAM_STR);
-// $stmt->bindParam(':dateOfJdate',$dateOfJdateOnFuntionEng , PDO::PARAM_STR);
-$stmt->execute(); 
-$data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+if(isset($_SESSION['data'])){
+$data = $_SESSION['data'];
+}else{
+  $query = "SELECT * FROM files";
+  $stmt = $con->prepare($query);
+  $stmt->execute(); 
+  $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 ?>
 <a href="./index.php">HOME</a>
@@ -20,7 +19,9 @@ $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div style="background: black;
     margin-top: 0px;
     padding: 10px 5px;">
+    
     <h2 style="color: whitesmoke;margin-bottom: 6.25px;">Search : </h2>
+    <button><a href="./../act/delsession.php">del session</a></button>
      <form action="./../act/searchData2DB.php" method="POST">
 
       <label for="name">Name : </label>
