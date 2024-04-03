@@ -1,15 +1,22 @@
-<div class="main-nav">
-    <div class="header">
-       <a href="./../pages/index.php" style="color: whitesmoke;text-decoration: none;"> <h1 class="title" >Medical Records Search System</h1></a>
-        <div class="time-div">
-            <img src="./../pic/MRSs.png" style="width: 5rem;" alt="">
-            <p class="time"><?= jdate("d F");?></p>
-            <!-- <p class="time" id="time"></p> -->
-        </div>
+<!-- CSS -->
+<style>
+    .nav-btn{
+        padding: 5px 7.5px;
+        border-radius: 5px;
+        font-family: yekanReg;
+        cursor: pointer;
+    }    
+    .shadow{
+        box-shadow:0px 0px 15px 1px rgba(0,0,0,0.5);
+    }
+</style>
+<!-- CSS  -->
+<div class="shadow" style="padding:9px;">
+    <div style="font-size: 25px;font-family: yekanBold;">
+           سیستم مدیریت پرونده
     </div>
-    <!-- <div class="nav"> -->
-        <!-- <p class="nav-item"><a href="./../pages/addnew.php">Add New medical Record</a></p> -->
-        <!-- <p class="nav-item"><a href="">All Records</a></p> -->
-        <!-- <p class="nav-item"><a href="">EXIT</a></p> -->
-    <!-- </div> -->
+    <div style="display: flex;">
+        <a href="./index.php" style="margin-left: 10px; color: white;text-decoration: none;"><button class="nav-btn">افزودن پرونده</button></a>
+        <a href="./allFiles.php" style="color: white; text-decoration: none;"><button class="nav-btn">همه پرونده ها</button></a>
+    </div>
 </div>

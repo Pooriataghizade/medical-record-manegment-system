@@ -1,31 +1,14 @@
 <?php 
+session_start();
 include "./../body/head.php";
 include "./../DB/dataBase.php";
-
+include "./../helpers/withchMF.php";
 
 $dateOfJdate = jdate("d");
 $ddate = jdate("F");
 
 //HELPERS FUNCTIONS => 
-switch($ddate)
-{
-  case "اسفند";
-  $f = "12";
-  break;
-  case "فروردین";
-  $f="1";
-  break;
-  case "اردیبهشت";
-  $f = "2";
-  break;
-}
-
-function convert_persian_to_english($string) {
-    $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-    $english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    $output = str_replace($persian, $english, $string);
-    return $output;
-}
+require "./../helpers/filesSearchFunc.php";
 
 //END OF HELPERS FUNCTION ;
 
@@ -38,31 +21,24 @@ $stmt->bindParam(':dateOfJdate',$dateOfJdateOnFuntionEng , PDO::PARAM_STR);
 $stmt->execute(); 
 $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
 //END OF QUERY ;
-
-
 ?>
-
-
-<body>
-    <?php // include "./../body/header.php";?>
-    <div>
-        MEDICAL RECORD MANEGMENT SYSTEM 
-    </div>
-    <a href="./allFiles.php">All Files</a>
-    <!-- ADD NEW FILE =>  -->
-<div style="display: flex;justify-content: space-between;background: #36434a";>
+<body dir="rtl">
+<?php 
+require "./../body/header.php";
+?>
+<div style="display: flex;justify-content: space-between;">
 <div style="
     margin-top: 0px;
     padding: 10px 5px;">
-    <h2 style="color: whitesmoke;margin-bottom: 6.25px;">Add New File : </h2>
+    <h3 style="margin-bottom: 6.25px;">افزودن پرونده جدید</h3>
      <form action="./../act/sendData2DB.php" method="POST">
-      <label for="name">Name : </label>
+      <label for="name">نام : </label>
       <input name="name" type="text">
-      <label for="discharge_day">Day : </label>
+      <label for="discharge_day">روز : </label>
       <input name="discharge_day" type="text" value="<?= convert_persian_to_english($dateOfJdate); ?>">
-      <label for="discharge_mouth">Mouth : </label>
+      <label for="discharge_mouth">ماه : </label>
       <select name="discharge_mouth" id="">
-        <option value="1" <?php if($f == "1"){echo "selected";}?>>Farvardin</option>
+        <option value="1" <?php if($f == "1"){echo "selected";}?>>فروردین</option>
         <option value="2">Ordibehesht</option>
         <option value="3">Khordad</option>
         <option value="4">Tir</option>
@@ -71,22 +47,15 @@ $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
         <option value="7">Mehr</option>
         <option value="12" <?php if($f == "12"){echo "selected";}?>>Esfand</option>
       </select>
-      <button type="submit">ADD</button>
+      <button style="padding: 2px 3px;font-family:yekanReg" type="submit">افزودن</button>
      </form>
     </div>
 <!-- END NEW FILE ; -->
 
-
-<!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH -->
-<!-- SEARCH --><!-- SEARCH --><!-- SEARCH -->
-<!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH -->
     </div>
-    <!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH -->
-<!-- SEARCH --><!-- SEARCH --><!-- SEARCH -->
-<!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH -->
     <div style="display: flex;justify-content: CENTER;flex-wrap: wrap;">
       <?php  foreach($data as $dt){   ?>
-      <div style="    background-color: #034c70;
+      <div style="    background-color:#585858;
     margin-inline: 5px;
     margin: 5px 6px;
     min-width: 240px;
@@ -95,24 +64,25 @@ $data =  $stmt->fetchAll(PDO::FETCH_ASSOC);
     justify-content: center;
     align-items: center;
     padding: 17px 5PX;
-    border-radius: 10px;
-    color:whitesmoke;">
+    border-radius: 5px;
+    color:aliceblue;
+    ">
         <h3><?= $dt['name']?></h3>
         <div style="display: flex;">
-            <H3>DAY OF DISCHARGE : </H3>
-            <h3><?= $dt['discharge_day'];?></h3>
+          <h3>تاریخ ترخیص : </h3>
+          <h3><?= $dt['discharge_day'];?></h3>
+          <h3><?= witchMouth($dt['discharge_mouth']);?></h3>
         </div>
-         <DIV style="display: flex;">
-         <H3>DAY OF DISCHARGE : </H3>
-        <h3><?= $dt['discharge_mouth'];?></h3>
-         </DIV>
+        
+       
+         
              <div style="display: flex;justify-content: space-around;">
                
              
-             <button style="background-color:#f50b0b ;padding: 4px 27px; border-radius: 5px;" type="button"><a style="text-decoration: none; color:whitesmoke" href="./../act/delete.php?id=<?= $dt['id']; ?>">Delete</a></button>
              <button type="button" style="background: #ffbc00;
              padding: 4px 27px;
-             border-radius: 5px;"><a style="text-decoration: none;color: #034c70;" href="./fileSingle.php?id=<?= $dt['id'];?>">Details</a></button> 
+             border-radius: 5px;"><a style="text-decoration: none;color: #034c70;" href="./fileSingle.php?id=<?= $dt['id'];?>">جزئیات</a></button> 
+             <button style="background-color:#f50b0b ;padding: 4px 27px; border-radius: 5px;" type="button"><a style="text-decoration: none; color:whitesmoke" href="./../act/delete.php?id=<?= $dt['id']; ?>">حذف</a></button>
             </div>
       </div>
       

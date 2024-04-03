@@ -3,9 +3,19 @@
     padding: 0;
     box-sizing: border-box;
 }
+@font-face {
+    font-family:"yekanReg";
+    src: url(yekanBakh/FaNum/Yekan\ Bakh\ FaNum\ 04\ Regular.woff);
+}
+@font-face {
+    font-family:"yekanBold";
+    src: url(yekanBakh/FaNum/Yekan\ Bakh\ FaNum\ 06\ Bold.woff);
+}
 body{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
+    font-family: yekanReg;
+}
+.bold{
+    font-family: yekanBold;
 }
 
 .header{
@@ -78,5 +88,11 @@ body{
 
 }
 label{
-    color: aliceblue;
+    color: \rgb(9, 9, 9);
+}
+input{
+    padding: 2px 3.5px;
+}
+select{
+    padding: 2px 3.5px;
 }
