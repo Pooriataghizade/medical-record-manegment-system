@@ -4,3 +4,19 @@ status =>
 2 -> پرونده نقص دار میباشد و تحویل منشی بخش
 3 -> پرونده فاقد اوراق اصلی میباشد و صمدی آن هارا برای رفع نقص خواهد برد
 4 -> سورت شده
+
+
+
+          <option value="1">بخش 1 </option>
+            <option value="2">بخش 2 </option>
+            <option value="3">بخش 3</option>
+            <option value="4">بخش 4</option>
+            <option value="5">بخش 5</option>
+            <option value="6">بخش 6</option>
+            <option value="7">بخش 7</option>
+            <option value="8">بخش SICU1</option>
+            <option value="9">بخش SICU2</option>
+            <option value="10">بخش MICU</option>
+            <option value="11">بخش CCU</option>
+            <option value="12">بخش VIP</option>
+            <option value="13">DayCare</option>

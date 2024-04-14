@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "./../body/head.php";
+include "./../layout/head.php";
 include "./../DB/dataBase.php";
 include "./../helpers/withchMF.php";
 $dateOfJdate = jdate("d");
@@ -21,80 +21,66 @@ if(!isset($_SESSION['data'])){
 }
 
 ?>
-<body dir="rtl">
+<body>
 <?php
-require "./../body/header.php";
+require "./../layout/header.php";
 
 ?>
-<div class="shadow"
-style="
+<div class="container mt-5">
+  <!-- SEARCH AREA -->
+  <form action="./../act/searchData2DB.php" method="POST">
+      
+      <div class="w-25 bg-primary p-3 rounded">
+        <label for="" class="text-white mb-3">Search : </label>
+        <div class="input-group mb-3  mx-1">
+          <span class="input-group-text" id="addon-wrapping">Name</span>
+          <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+        <div class="input-group mb-3 mx-1">
+          <span class="input-group-text" id="addon-wrapping">Day</span>
+          <input type="text" name="discharge_day" class="form-control" value="<?= convert_persian_to_english($dateOfJdate)?>" placeholder="discharge_day" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+        <div class="input-group mb-3 mx-1">
+          <span class="input-group-text" id="addon-wrapping">Mouth</span>
+          <select class="form-control" name="discharge_mouth" id="">
+          <option value="1" <?php if($f == "1"){echo "selected";}?>>فروردین</option>
+          <option value="2" <?php if($f == "2")echo "selected";?>>Ordibehesht</option>
+          <option value="3">Khordad</option>
+          <option value="4">Tir</option>
+          <option value="5">Mordad</option>
+          <option value="6">Shahrivar</option>
+          <option value="7">Mehr</option>
+          <option value="12" <?php if($f == "12"){echo "selected";}?>>Esfand</option>
+        </select>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-dark">Search</button>
+        </div>
+      </div>
+  </form>
+  <!-- End Search Area -->
 
-    margin:15px 20px;
-    padding: 10px 5px;">
-    
-    <h2 style="color: whitesmoke;margin-bottom: 6.25px;">Search : </h2>
-    <button><a href="./../act/delsession.php">del session</a></button>
-     <form action="./../act/searchData2DB.php" method="POST">
-
-      <label for="name">نام : </label>
-      <input name="name" type="text">
-
-      <label for="discharge_day">روز : </label>
-      <input name="discharge_day" type="number">
-
-      <label for="discharge_mouth">ماه : </label>
-      <select name="discharge_mouth" id="">
-        <option value="">انتخاب</option>
-        <option value="1">فروردین</option>
-        <option value="2">اردیبهشت</option>
-        <option value="3">خرداد</option>
-        <option value="4">تیر</option>
-        <option value="5">مرداد</option>
-        <option value="6">شهریور</option>
-        <option value="7">مهر</option>
-        <option value="12">اسفند</option>
-      </select>
-
-      <button type="submit">جستوجو</button>
-     </form>
-    </div>
-
-    <div style="display: flex;justify-content: CENTER;flex-wrap: wrap;">
-      <?php  foreach($data as $dt){   ?>
-      <div style="    background-color:#294e38;
-    margin-inline: 5px;
-    margin: 5px 6px;
-    min-width: 240px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 17px 5PX;
-    border-radius: 5px;
-    color:aliceblue;
-    ">
-        <h3><?= $dt['name']?></h3>
+  <!-- Show all Files -->
+  <div>
+    <div class="d-flex flex-wrap mt-3">
+    <?php  foreach($data as $dt){   ?>
+      <div class="mx-1 px-2 py-1 bg-primary my-1 d-flex flex-column justify-content-center align-items-center rounded">
+        <p class="fs-4"><?= $dt['name']?></p>
         <div style="display: flex;">
-          <h3>تاریخ ترخیص : </h3>
-          <h3><?= $dt['discharge_day'];?></h3>
-          <h3><?= witchMouth($dt['discharge_mouth']);?></h3>
+          <p class="fs-4">Discharge Date : </p>
+          <p class="fs-4"><?= $dt['discharge_day'];?></p>
+          <p class="fs-4"><?= witchMouth($dt['discharge_mouth']);?></p>
+        </div>
+        <div class="d-flex justify-content-between">
+          <a class="btn btn-primary" href="./fileSingle.php?id=<?= $dt['id'];?>">Details</a>
+          <a class="btn btn-primary" href="./../act/delete.php?id=<?= $dt['id']; ?>">Delete</a>
         </div>
         
-       
-         
-             <div style="display: flex;justify-content: space-around;">
-               
-             
-             <button type="button" style="background: #ffbc00;
-             padding: 4px 27px;
-             border-radius: 5px;"><a style="text-decoration: none;color: #034c70;" href="./fileSingle.php?id=<?= $dt['id'];?>">جزئیات</a></button> 
-             <button style="background-color:#f50b0b ;padding: 4px 27px; border-radius: 5px;" type="button"><a style="text-decoration: none; color:whitesmoke" href="./../act/delete.php?id=<?= $dt['id']; ?>">حذف</a></button>
-            </div>
       </div>
       
       <?php }?>
     </div>
-    <!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH -->
-<!-- SEARCH --><!-- SEARCH --><!-- SEARCH -->
-<!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH --><!-- SEARCH -->
+  </div>
+  <!--End Show all Files -->
+</div>
 </body>

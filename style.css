@@ -4,20 +4,18 @@
     box-sizing: border-box;
 }
 @font-face {
-    font-family:"yekanReg";
-    src: url(yekanBakh/FaNum/Yekan\ Bakh\ FaNum\ 04\ Regular.woff);
+    font-family: yekanBakhReg;
+    src: url("./assets/yekanBakh/FaNum/Yekan\ Bakh\ FaNum\ 04\ Regular.woff");
 }
-@font-face {
-    font-family:"yekanBold";
-    src: url(yekanBakh/FaNum/Yekan\ Bakh\ FaNum\ 06\ Bold.woff);
-}
-body{
-    font-family: yekanReg;
+/* body{
+    font-family: "yekanBakhReg";
+} */
+.yekan-reg{
+    font-family: "yekanBakhReg";
 }
 .bold{
     font-family: yekanBold;
 }
-
 .header{
     background-color: #034c70;
     padding: 10px;
@@ -95,4 +93,16 @@ input{
 }
 select{
     padding: 2px 3.5px;
+}
+.mb-6-25{
+    margin-bottom: 6.25px;
+}
+.nav-btn{
+    padding: 5px 7.5px;
+    border-radius: 5px;
+    font-family: yekanReg;
+    cursor: pointer;
+}    
+.shadow{
+    box-shadow:0px 0px 15px 1px rgba(0,0,0,0.5);
 }
